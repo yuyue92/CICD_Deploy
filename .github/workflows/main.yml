@@ -1,0 +1,42 @@
+name: Frontend
+
+on:
+  push:
+    branches: [ main ] # 只在main分支推送时触发
+  pull_request:
+    branches: [ main ] # 也可以在PR时运行测试
+
+permissions:
+  contents: write # 允许 GITHUB_TOKEN 拥有写入仓库权限（必须）
+  
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # 使用最新版Ubuntu运行器
+    
+    steps:
+    # 1. 检出代码
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    # 2. 设置Node.js环境
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' # 使用Node.js 18
+        cache: 'npm' # 缓存npm依赖
+    
+    # 3. 安装依赖
+    - name: Install dependencies
+      run: npm install
+
+    # 5. 构建项目
+    - name: Build project
+      run: npm run build
+    
+    # 6. 部署到GitHub Pages（示例）
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist # 构建输出目录
+        publish_branch: gh-pages  # 确保指定目标分支
