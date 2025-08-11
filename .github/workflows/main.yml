@@ -34,7 +34,7 @@ jobs:
       run: npm run build
       
     - name: Start server
-      run: node server.js
+      run: npm run server
     
     # 6. 部署到GitHub Pages（示例）
     - name: Deploy to GitHub Pages
