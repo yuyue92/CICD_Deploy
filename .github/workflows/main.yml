@@ -32,6 +32,9 @@ jobs:
     # 5. 构建项目
     - name: Build project
       run: npm run build
+      
+    - name: Start server
+      run: node server.js
     
     # 6. 部署到GitHub Pages（示例）
     - name: Deploy to GitHub Pages
